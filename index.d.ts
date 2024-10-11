@@ -1,8 +1,12 @@
 declare module 'react-native-analytics-tools' {
+
+	export type BuildMode = "production" | "development";
+
 	export interface AnalyticsConfig {
 		firebase?: FirebaseConfig;
 		facebook?: FacebookConfig;
 		branch?: BranchConfig;
+		adjust?: AdjustConfig;
 	}
 
 	export interface FirebaseConfig {
@@ -21,14 +25,24 @@ declare module 'react-native-analytics-tools' {
 		// Add other Branch configuration options here if needed
 	}
 
-	export interface Analytics {
-		initialize(config: AnalyticsConfig): void;
-		logEvent(eventName: string, params?: Record<string, any>): void;
-		logPurchase(amount: string, currency: string, params?: Record<string, any>): void;
-		setUserId(userId: string): void;
-		setUserProperty(property: string, value: string): void;
+	export interface AdjustConfig {
+		enabled: boolean;
+		appToken: string;
+		env?: BuildMode;
+		log?: boolean;
 	}
 
-	const analytics: Analytics;
-	export default analytics;
+	export class Analytics {
+		constructor(config: AnalyticsConfig);
+
+		public initialize(): void;
+		public logEvent(eventName: string, params?: Record<string, any>): void;
+		public setUserId(userId: string): void;
+		public setUserProperty(property: string, value: string): void;
+		public logPurchase(amount: string, currency: string, params?: Record<string, any>): void;
+
+		private enabledSDK: { [key: string]: boolean };
+		private config: AnalyticsConfig;
+		private sdkMap: { [key: string]: any };
+	}
 }
