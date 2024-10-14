@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-native-firebase/analytics": "^20.1.0",
     "@react-native-firebase/app": "^20.1.0",
+    "react-native-adjust": "5.0.2",
     "react-native-appsflyer": "^6.14.3",
     "react-native-branch": "^6.2.2",
     "react-native-fbsdk-next": "^13.0.0"
