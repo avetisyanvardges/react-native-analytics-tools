@@ -29,7 +29,8 @@ const AdjustAnalytics = {
         }
     },
 
-    logEvent: (eventToken) => {
+    logEvent: (eventName, eventValues) => {
+        let { eventToken } = eventValues;
         let adjustEvent = new AdjustEvent(eventToken);
         Adjust.trackEvent(adjustEvent);
     },
